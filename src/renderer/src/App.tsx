@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import BasicDateTimePicker from './common/Inputs/DateTimePicker'
 import { Box } from '@mui/material'
-import { Trade } from '../../main/Interfaces/trade'
+import { Trade } from '@interfaces/trade'
 import TradePreview from './components/TradePreview/TradePreview'
 import { generateID } from './common/generateID'
 import moment from 'moment'

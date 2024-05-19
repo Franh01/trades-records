@@ -1,4 +1,4 @@
-import { Trade } from 'src/main/Interfaces/trade'
+import { Trade } from '@interfaces/trade'
 import { TradeStatsOutput } from './getTradeStats'
 
 interface TradePreviewStylesOutput {
@@ -14,7 +14,7 @@ interface TradePreviewStylesOutput {
  */
 export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewStylesOutput => {
   return {
-    'trade-preview-main': {
+    tradePreviewMainSX: {
       width: '200px',
       height: '144px',
       borderRadius: '5px',
@@ -28,7 +28,7 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
         transition: 'all 0.2s ease-in-out'
       }
     },
-    'colored-header': {
+    coloredHeaderSX: {
       maxWidth: '200px',
       height: '37px',
       background:
@@ -38,21 +38,22 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
       alignItems: 'center',
       padding: '10px 14px'
     },
-    'header-font': {
+    headerFontSX: {
       fontSize: '14px',
       fontWeight: 'bold'
     },
+    bodySX: { padding: '10px 14px' },
     'quantity-and-cost': {
       fontWeight: 600 //semibold
     },
-    'profit-percentage': {
+    profitPercentageSX: {
       color:
         stats.profitPercentage > 0 && trade.type === 'buy'
           ? 'var(--primary-color)'
           : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
     },
-    'net-profit': {
+    netProfitSX: {
       color:
         stats.netProfit > 0 && trade.type === 'buy'
           ? 'var(--primary-color)'

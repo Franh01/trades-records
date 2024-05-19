@@ -1,6 +1,6 @@
 import { app, ipcMain } from 'electron'
 
-import { Trade } from '../../Interfaces/trade'
+import { Trade } from '../../interfaces/trade'
 import fs from 'fs'
 import { mainWindow } from '../../index'
 import path from 'path'

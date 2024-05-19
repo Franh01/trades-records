@@ -1,5 +1,5 @@
-import { Trade } from 'src/main/Interfaces/trade'
-import usePricingFormatter from '@renderer/common/usePricingFormatter'
+import { Trade } from '@interfaces/trade'
+import usePricingFormatter from '@common/usePricingFormatter'
 
 export interface TradeStatsOutput {
   formattedCost: string
