@@ -15,43 +15,59 @@ interface TradePreviewProps {
  * @return {JSX.Element} - The rendered trade preview component.
  */
 const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps) => {
-  const STATS = getTradeStats(trade)
-  const STYLES = getStyles(trade, STATS)
+  const stats = getTradeStats(trade)
+  const styles = getStyles(trade, stats)
+
+  const symbolAndLeverage = `${trade.symbol} ${trade.leverage}X`
+
+  const getRating = (): string => {
+    const profitPercentage =
+      stats.profitPercentage > 0 && trade.type === 'buy'
+        ? stats.profitPercentage
+        : stats.profitPercentage * -1
+
+    const ratings = ['D', 'D+', 'C', 'C+', 'B', 'B+', 'A', 'A+', 'S', 'S+', 'SS', 'SS+']
+
+    for (let i = ratings.length - 1; i >= 0; i--) {
+      //Here im trying to format the percentage to a max value of 12 which is rating length considering a SS+ as +300% so 300 / 25 = 12 max value
+      const formattedProfit = Math.round(profitPercentage / 25)
+
+      if (formattedProfit >= i) return ratings[i]
+    }
+
+    return ratings[0]
+  }
+
+  const quantityAndCost = `${trade.quantity} (${stats.formattedCost})`
+
+  const profitPercentage = ` ${stats.profitPercentage > 0 && trade.type === 'buy' ? '+' : '-'}${stats.profitPercentage.toFixed(2)}%`
 
   return (
-    <Box id="trade-preview-main" sx={STYLES['trade-preview-main']}>
-      <Box id="colored-header" component={'header'} sx={STYLES['colored-header']}>
-        <Typography
-          id="symbol-and-leverage"
-          sx={STYLES['header-font']}
-          component={'h3'}
-        >{`${trade.symbol} ${trade.leverage}X`}</Typography>
-        <Typography id="rating" sx={STYLES['header-font']} component={'h3'}>
-          {/* //TODO: Create a ranking system based on the profit percentage */}
-          D-
+    <Box id="trade-preview-main" sx={styles['trade-preview-main']}>
+      <Box id="colored-header" component={'header'} sx={styles['colored-header']}>
+        <Typography id="symbol-and-leverage" sx={styles['header-font']} component={'h3'}>
+          {symbolAndLeverage}
+        </Typography>
+        <Typography id="rating" sx={styles['header-font']} component={'h3'}>
+          {getRating()}
         </Typography>
       </Box>
       <Box id="body" sx={{ padding: '10px 14px' }} component={'section'}>
         <Typography id="quantity">
           {`Q: `}
-          <Box
-            id="quantity-and-cost"
-            sx={STYLES['quantity-and-cost']}
-            component={'span'}
-          >{`${trade.quantity} (${STATS.COST})`}</Box>
+          <Box id="quantity-and-cost" sx={styles['quantity-and-cost']} component={'span'}>
+            {quantityAndCost}
+          </Box>
         </Typography>
         <Typography id="profit-percentage-container">
           P/L:
-          <Box
-            id="profit-percentage"
-            component={'span'}
-            sx={STYLES['profit-percentage']}
-          >{` ${STATS.PROFIT_PERCENTAGE > 0 && trade.type === 'buy' ? '+' : '-'}${STATS.PROFIT_PERCENTAGE.toFixed(2)}%`}</Box>
+          <Box id="profit-percentage" component={'span'} sx={styles['profit-percentage']}>
+            {profitPercentage}
+          </Box>
         </Typography>
-        <Typography
-          id="net-profit"
-          style={STYLES['net-profit']}
-        >{`${STATS.NET_PROFIT_STYLED}`}</Typography>
+        <Typography id="net-profit" style={styles['net-profit']}>
+          {stats.formattedNetProfit}
+        </Typography>
       </Box>
     </Box>
   )

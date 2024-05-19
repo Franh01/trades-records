@@ -47,14 +47,14 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
     },
     'profit-percentage': {
       color:
-        stats.PROFIT_PERCENTAGE > 0 && trade.type === 'buy'
+        stats.profitPercentage > 0 && trade.type === 'buy'
           ? 'var(--primary-color)'
           : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
     },
     'net-profit': {
       color:
-        stats.NET_PROFIT > 0 && trade.type === 'buy'
+        stats.netProfit > 0 && trade.type === 'buy'
           ? 'var(--primary-color)'
           : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
