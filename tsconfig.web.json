@@ -20,6 +20,9 @@
       ],
       "@interfaces/*":[
         "src/main/interfaces/*"
+      ],
+      "@images/*":[
+        "src/renderer/src/assets/images/*"
       ]
     }
   }

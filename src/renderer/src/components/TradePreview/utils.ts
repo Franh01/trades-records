@@ -1,6 +1,7 @@
 import { RATINGS } from '@renderer/common/constants'
 import { Trade } from '@interfaces/trade'
 import { TradeStatsOutput } from './getTradeStats'
+import cryptoIcons from '@images/icons'
 
 /**
  * Determines if the profit is positive based on the trade and trade stats.
@@ -33,4 +34,14 @@ export const getRating = (trade: Trade, stats: TradeStatsOutput): string => {
   }
 
   return RATINGS[0]
+}
+
+/**
+ * Returns the icon associated with the given symbol.
+ *
+ * @param {string} symbol - The symbol for which to retrieve the icon.
+ * @return {string} The icon associated with the symbol.
+ */
+export const getIconBySymbol = (symbol: string): string => {
+  return cryptoIcons[symbol]
 }

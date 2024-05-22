@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { getRating, isProfitPositive } from './utils'
+import { getIconBySymbol, getRating, isProfitPositive } from './utils'
 
 import { Trade } from 'src/main/interfaces/trade'
 import { getStyles } from './styles'
@@ -25,7 +25,9 @@ const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps)
     bodySX,
     quantityAndCostSX,
     profitPercentageSX,
-    netProfitSX
+    netProfitSX,
+    symbolIconSX,
+    iconSymbolAndLeverageContainerSX
   } = getStyles(trade, stats)
 
   const symbolAndLeverage = `${trade.symbol} ${trade.leverage}X`
@@ -37,9 +39,18 @@ const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps)
   return (
     <Box id="trade-preview-main" sx={tradePreviewMainSX}>
       <Box id="colored-header" component="header" sx={coloredHeaderSX}>
-        <Typography id="symbol-and-leverage" sx={headerFontSX} component="h3">
-          {symbolAndLeverage}
-        </Typography>
+        <Box id="icon-symbol-and-leverage-container" sx={iconSymbolAndLeverageContainerSX}>
+          <Box
+            id="symbol-icon"
+            component="img"
+            src={getIconBySymbol(trade.symbol)}
+            alt={`${trade.symbol} icon`}
+            sx={symbolIconSX}
+          ></Box>
+          <Typography id="symbol-and-leverage" sx={headerFontSX} component="h3">
+            {symbolAndLeverage}
+          </Typography>
+        </Box>
         <Typography id="rating" sx={headerFontSX} component="h3">
           {rating}
         </Typography>

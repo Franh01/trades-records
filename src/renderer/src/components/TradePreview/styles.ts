@@ -39,7 +39,7 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
       padding: '10px 14px'
     },
     headerFontSX: {
-      fontSize: '14px',
+      fontSize: '16px',
       fontWeight: 'bold'
     },
     bodySX: { padding: '10px 14px' },
@@ -59,6 +59,17 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
           ? 'var(--primary-color)'
           : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
+    },
+    symbolIconSX: {
+      width: '30px',
+      height: '30px',
+      bottom: '12px',
+      right: '12px'
+    },
+    iconSymbolAndLeverageContainerSX: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px'
     }
   }
 }
