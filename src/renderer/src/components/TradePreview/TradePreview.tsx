@@ -43,7 +43,7 @@ const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps)
           <Box
             id="symbol-icon"
             component="img"
-            src={getIconBySymbol(trade.symbol)}
+            src={getIconBySymbol(trade.symbol || '')}
             alt={`${trade.symbol} icon`}
             sx={symbolIconSX}
           ></Box>
