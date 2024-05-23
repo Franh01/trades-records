@@ -1,5 +1,5 @@
 import { Trade } from '@interfaces/trade'
-import usePricingFormatter from '@common/usePricingFormatter'
+import usePricingFormatter from '@common/helpers/usePricingFormatter'
 
 export interface TradeStatsOutput {
   formattedCost: string
@@ -34,7 +34,8 @@ interface NetProfitOutput {
 const getNetProfit = (trade: Trade): NetProfitOutput => {
   //We calculate the net profit of the trade with this formula: (exit_price - entry_price) - (entry_commission + exit_commission)
   const commissions: number = trade.entry_commission + trade.exit_commission
-  const netProfit: number = trade.exit_price - trade.entry_price - commissions
+  const netProfit: number = (trade.exit_price - trade.entry_price) * trade.quantity - commissions
+
   const formattedNetProfit: string = usePricingFormatter(netProfit)
   const formattedAndStyledNetProfit: string =
     formattedNetProfit.slice(0, 4) +
@@ -54,3 +55,5 @@ export const getTradeStats = (trade: Trade): TradeStatsOutput => {
     formattedNetProfit: getNetProfit(trade).formattedNetProfit
   }
 }
+
+//13.975 - 14.149 * 9

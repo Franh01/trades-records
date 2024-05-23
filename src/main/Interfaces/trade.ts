@@ -4,8 +4,8 @@ export type trade_type = 'buy' | 'sell'
 
 export interface Trade {
   comment: string
-  entry_date: Moment
-  exit_date: Moment
+  entry_date: Moment | null
+  exit_date: Moment | null
   entry_commission: number
   entry_price: number
   exit_commission: number
@@ -13,8 +13,8 @@ export interface Trade {
   leverage: number
   quantity: number
   stop_loss: number
-  symbol: string
+  symbol: string | null
   take_profit: number
-  type: trade_type
+  type: trade_type | null
   id: string
 }

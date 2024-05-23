@@ -1,4 +1,4 @@
-import { RATINGS } from '@renderer/common/constants'
+import { RATINGS } from '@renderer/common/constants/ratings'
 import { Trade } from '@interfaces/trade'
 import { TradeStatsOutput } from './getTradeStats'
 import cryptoIcons from '@images/icons'
