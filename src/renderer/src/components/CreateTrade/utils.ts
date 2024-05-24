@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction } from 'react'
 
 import { Moment } from 'moment'
 import { Trade } from '@interfaces/trade'
-import { defaultValues } from '@renderer/common/constants/tradeInputs'
 import { generateID } from '@renderer/common/utils/generateID'
 
 /**
@@ -88,12 +87,12 @@ export const handleAutoCompleteChange = (
  * and resetting the trade values to their default state.
  *
  * @param {Trade} values - The trade values to be serialized and sent.
- * @param {Dispatch<SetStateAction<Trade>>} setTradeValues - The state setter function for the trade values.
+ * @param {Dispatch<SetStateAction<boolean>> | undefined}  - State setter function for the modal open state.
  * @return {void} This function does not return anything.
  */
 export const handleCreateFile = (
   values: Trade,
-  setTradeValues: Dispatch<SetStateAction<Trade>>
+  onClose: Dispatch<SetStateAction<boolean>> | undefined
 ): void => {
   // Convert the object to a JSON string because it's the only way I can avoid the "An object could not be cloned." error
   const SERIALIZED_TRADE = JSON.stringify({ ...values, id: generateID() })
@@ -103,5 +102,7 @@ export const handleCreateFile = (
   // Send the object to the main process
   window.electron.ipcRenderer.send('new-file', DESERIALIZED_TRADE)
 
-  setTradeValues(defaultValues)
+  if (onClose) {
+    onClose(false)
+  }
 }

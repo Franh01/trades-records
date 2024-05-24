@@ -1,5 +1,6 @@
 import { defaultValues, textInputs } from '@common/constants/tradeInputs'
 import { handleChangeTextInput, handleCreateFile } from './utils'
+import { useEffect, useState } from 'react'
 
 import CustomTextInput from '../common/CustomTextInput'
 import { DateInputs } from './components/DateInputs'
@@ -8,10 +9,19 @@ import { Grid } from '@mui/material'
 import { MultipleInputs } from './components/MultipleInputs'
 import { NumberInputs } from './components/NumberInputs'
 import { Trade } from '@interfaces/trade'
-import { useState } from 'react'
 
-const CreateTrade: React.FC = () => {
+interface CreateTradeProps {
+  onClose?: () => void
+}
+
+const CreateTrade = ({ onClose }: CreateTradeProps): JSX.Element => {
   const [tradeValues, setTradeValues] = useState<Trade>(defaultValues)
+
+  useEffect(() => {
+    return () => {
+      setTradeValues(defaultValues)
+    }
+  }, [])
 
   return (
     <Grid id="create-trade-grid-container" container spacing={1}>
@@ -30,7 +40,7 @@ const CreateTrade: React.FC = () => {
         <DefaultButton
           text="Create file"
           variant="contained"
-          onClick={() => handleCreateFile(tradeValues, setTradeValues)}
+          onClick={() => handleCreateFile(tradeValues, onClose)}
           sx={{
             marginTop: 2,
             padding: '20px 20px'

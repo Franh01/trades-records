@@ -26,7 +26,7 @@ const CustomAutocomplete = ({
   return (
     <Autocomplete
       sx={{ width: '100%' }}
-      value={capitalize(value || '')}
+      value={capitalize(value ?? '')}
       onChange={(_, newValue) => {
         onChange(newValue, name)
       }}

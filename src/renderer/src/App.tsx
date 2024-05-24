@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { Box } from '@mui/material'
 import CreateTrade from './components/CreateTrade/CreateTrade'
+import DefaultButton from './components/common/DefaultButton'
+import ReusableModal from './components/common/ReusableModal'
 import { Trade } from '@interfaces/trade'
 import TradePreview from './components/TradePreview/TradePreview'
 
@@ -9,6 +11,7 @@ function App(): JSX.Element {
   // We extract every input from PREV_VALUES and slice the ID
 
   const [trades, setTrades] = useState<Trade[]>([])
+  const [isCreateTradeModalOpen, setIsCreateTradeModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
     window.electron.ipcRenderer.on('trades', (_, trades: Trade[]) => {
@@ -19,6 +22,10 @@ function App(): JSX.Element {
       window.electron.ipcRenderer.removeAllListeners('path')
     }
   }, [])
+
+  const handleOpenCreateTrade = (): void => {
+    setIsCreateTradeModalOpen(true)
+  }
 
   return (
     <>
@@ -34,8 +41,17 @@ function App(): JSX.Element {
           <TradePreview key={trade.id} trade={trade} />
         ))}
       </Box>
-      <button onClick={() => window.electron.ipcRenderer.send('get-trades')}>Get trades!</button>
-      <CreateTrade />
+      <DefaultButton
+        onClick={() => window.electron.ipcRenderer.send('get-trades')}
+        text="Get trades!"
+        variant="contained"
+      />
+
+      <DefaultButton onClick={handleOpenCreateTrade} text="Open create" variant="contained" />
+
+      <ReusableModal onClose={setIsCreateTradeModalOpen} open={isCreateTradeModalOpen}>
+        <CreateTrade />
+      </ReusableModal>
     </>
   )
 }
