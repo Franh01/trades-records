@@ -1,17 +1,15 @@
 import { RATINGS } from '@renderer/common/constants/ratings'
-import { Trade } from '@interfaces/trade'
 import { TradeStatsOutput } from './getTradeStats'
 import cryptoIcons from '@images/icons'
 
 /**
  * Determines if the profit is positive based on the trade and trade stats.
  *
- * @param {Trade} trade - The trade object containing the necessary information.
  * @param {TradeStatsOutput} stats - The trade stats object containing the profit percentage.
  * @return {boolean} - True if the profit is positive and the trade type is 'buy', otherwise false.
  */
-export const isProfitPositive = (trade: Trade, stats: TradeStatsOutput): boolean => {
-  return stats.profitPercentage > 0 && trade.type === 'buy'
+export const isProfitPositive = (stats: TradeStatsOutput): boolean => {
+  return stats.profitPercentage > 0
 }
 
 /**
@@ -21,8 +19,8 @@ export const isProfitPositive = (trade: Trade, stats: TradeStatsOutput): boolean
  * @param {TradeStatsOutput} stats - The trade stats object containing the profit percentage and net profit.
  * @return {string} - The rating based on the profit percentage.
  */
-export const getRating = (trade: Trade, stats: TradeStatsOutput): string => {
-  const profitPercentage = isProfitPositive(trade, stats)
+export const getRating = (stats: TradeStatsOutput): string => {
+  const profitPercentage = isProfitPositive(stats)
     ? stats.profitPercentage
     : stats.profitPercentage * -1
 

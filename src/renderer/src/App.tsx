@@ -50,9 +50,9 @@ function App(): JSX.Element {
         <DefaultButton onClick={handleOpenCreateTrade} text="Open create" variant="contained" />
         <DefaultButton onClick={getTrades} text="Refresh trades!" variant="contained" />
       </Box>
-      <Grid container spacing={1} p={2}>
+      <Grid container mt={2} spacing={1.5}>
         {trades.map((trade: Trade) => (
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={1.5} key={trade.id} wrap="wrap">
+          <Grid item key={trade.id} wrap="wrap">
             <TradePreview trade={trade} />
           </Grid>
         ))}

@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material'
-import { getIconBySymbol, getRating, isProfitPositive } from './utils'
+import { Box, Grid, Typography } from '@mui/material'
 
 import { Trade } from 'src/main/interfaces/trade'
+import { getIconBySymbol } from './utils'
 import { getStyles } from './styles'
 import { getTradeStats } from './getTradeStats'
 
@@ -32,9 +32,6 @@ const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps)
 
   const symbolAndLeverage = `${trade.symbol} ${trade.leverage}X`
   const quantityAndCost = `${trade.quantity} (${stats.formattedCost})`
-  const profitPercentage = ` ${isProfitPositive(trade, stats) ? '+' : '-'}${stats.profitPercentage.toFixed(2)}%`
-
-  const rating = getRating(trade, stats)
 
   return (
     <Box id="trade-preview-main" sx={tradePreviewMainSX}>
@@ -51,27 +48,35 @@ const TradePreview: React.FC<TradePreviewProps> = ({ trade }: TradePreviewProps)
             {symbolAndLeverage}
           </Typography>
         </Box>
-        <Typography id="rating" sx={headerFontSX} component="h3">
-          {rating}
-        </Typography>
       </Box>
-      <Box id="body" sx={bodySX} component="section">
-        <Typography id="quantity">
-          {`Q: `}
-          <Box id="quantity-and-cost" sx={quantityAndCostSX} component="span">
-            {quantityAndCost}
-          </Box>
-        </Typography>
-        <Typography id="profit-percentage-container">
-          P/L:
-          <Box id="profit-percentage" component="span" sx={profitPercentageSX}>
-            {profitPercentage}
-          </Box>
-        </Typography>
-        <Typography id="net-profit" style={netProfitSX}>
-          {stats.formattedNetProfit}
-        </Typography>
-      </Box>
+      <Grid container id="body" sx={bodySX} component="section">
+        <Grid item xs={8}>
+          <Typography id="quantity">
+            {`Q: `}
+            <Box id="quantity-and-cost" sx={quantityAndCostSX} component="span">
+              {quantityAndCost}
+            </Box>
+          </Typography>
+          <Typography id="profit-percentage-container">
+            P/L:
+            <Box id="profit-percentage" component="span" sx={profitPercentageSX}>
+              {stats.styledProfitPercentage}
+            </Box>
+          </Typography>
+          <Typography id="net-profit" style={netProfitSX}>
+            {stats.formattedNetProfit}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography id="rating">
+            {`B: ${stats.getOperationGrades.buy(trade)}`}
+            <br />
+            {`S: ${stats.getOperationGrades.sell(trade)}`}
+            <br />
+            {`O: ${stats.getOperationGrades.channel(trade)}`}
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

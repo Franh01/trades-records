@@ -1,5 +1,6 @@
 import { Trade } from '@interfaces/trade'
 import { TradeStatsOutput } from './getTradeStats'
+import { isProfitPositive } from './utils'
 
 interface TradePreviewStylesOutput {
   [key: string]: object
@@ -15,7 +16,7 @@ interface TradePreviewStylesOutput {
 export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewStylesOutput => {
   return {
     tradePreviewMainSX: {
-      width: '200px',
+      width: '250px',
       height: '144px',
       borderRadius: '5px',
       overflow: 'hidden',
@@ -29,7 +30,7 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
       }
     },
     coloredHeaderSX: {
-      maxWidth: '200px',
+      maxWidth: '100%',
       height: '37px',
       background:
         trade.type === 'buy' ? 'var(--secondary-color)' : 'var(--secondary-color-contrast)',
@@ -47,17 +48,11 @@ export const getStyles = (trade: Trade, stats: TradeStatsOutput): TradePreviewSt
       fontWeight: 600 //semibold
     },
     profitPercentageSX: {
-      color:
-        stats.profitPercentage > 0 && trade.type === 'buy'
-          ? 'var(--primary-color)'
-          : 'var(--primary-color-contrast)',
+      color: isProfitPositive(stats) ? 'var(--primary-color)' : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
     },
     netProfitSX: {
-      color:
-        stats.netProfit > 0 && trade.type === 'buy'
-          ? 'var(--primary-color)'
-          : 'var(--primary-color-contrast)',
+      color: isProfitPositive(stats) ? 'var(--primary-color)' : 'var(--primary-color-contrast)',
       fontWeight: 600 //semibold
     },
     symbolIconSX: {

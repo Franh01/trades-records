@@ -1,5 +1,5 @@
 {
-  "name": "trades_records",
+  "name": "trade_jounal",
   "version": "1.0.0",
   "description": "An application to manage trades records",
   "main": "./out/main/index.js",

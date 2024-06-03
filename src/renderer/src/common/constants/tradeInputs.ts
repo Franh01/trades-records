@@ -32,6 +32,30 @@ export const numberInputs = [
   {
     name: 'stop_loss',
     placeholder: 'Stop loss'
+  },
+  {
+    name: 'upchannel',
+    placeholder: 'Up channel'
+  },
+  {
+    name: 'downchannel',
+    placeholder: 'Down channel'
+  },
+  {
+    name: 'in_daily_high',
+    placeholder: 'In daily high'
+  },
+  {
+    name: 'in_daily_low',
+    placeholder: 'In daily low'
+  },
+  {
+    name: 'out_daily_high',
+    placeholder: 'Out daily high'
+  },
+  {
+    name: 'out_daily_low',
+    placeholder: 'Out daily low'
   }
 ]
 
@@ -57,7 +81,7 @@ export const multipleInputs = [
   {
     name: 'symbol',
     placeholder: 'Symbol',
-    options: ['BNB', 'BTC', 'ETH', 'LINK', 'SOL']
+    options: ['BNB', 'BTC', 'ETH', 'LINK', 'SOL', '1000PEPE']
   },
   {
     name: 'type',
@@ -80,5 +104,11 @@ export const defaultValues: Trade = {
   type: null,
   entry_date: null,
   exit_date: null,
+  upchannel: 0,
+  downchannel: 0,
+  in_daily_high: 0,
+  in_daily_low: 0,
+  out_daily_high: 0,
+  out_daily_low: 0,
   id: ''
 }
